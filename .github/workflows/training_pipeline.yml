@@ -45,7 +45,10 @@ jobs:
             echo "$HOME/.local/bin" >> $GITHUB_PATH
         
         - name: Install Dependencies
-          run: poetry install
+          run: |
+            poetry add hsfs
+            poetry install
+
             
         - name: Run training script
           env:
