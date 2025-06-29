@@ -4,3 +4,7 @@ backfill:
 # generates new batch of features and stores them in the feature store
 features:
 	poetry run python src/pipelines/feature_pipeline.py
+
+# trains a new model and stores it in the model registry
+train:
+	poetry run python src/pipelines/training_pipeline.py

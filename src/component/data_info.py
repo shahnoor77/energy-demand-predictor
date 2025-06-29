@@ -241,6 +241,8 @@ def transform_ts_data_into_features_and_target(
     Slices and transposes data from time-series format into a (features, target)
     format that we can use to train Supervised ML models
     """
+    ts_data = ts_data[['date', 'demand', 'sub_region_code', 'temperature_2m']]
+
     assert set(ts_data.columns) == {'date','demand', 'sub_region_code','temperature_2m'}
 
     region_codes = ts_data['sub_region_code'].unique()

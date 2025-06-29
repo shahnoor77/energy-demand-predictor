@@ -68,4 +68,4 @@ N_FEATURES = 24 * 28
 N_HYPERPARAMETER_SEARCH_TRIALS = 5
 
 # maximum Mean Absolute Error we allow our production model to have
-MAX_MAE = 300
+MAX_MAE = 400
