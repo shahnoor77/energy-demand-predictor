@@ -8,3 +8,7 @@ features:
 # trains a new model and stores it in the model registry
 train:
 	poetry run python src/pipelines/training_pipeline.py
+
+# generates predictions and stores them in the feature store
+inference:
+	poetry run python src/pipelines/inference_pipeline.py
