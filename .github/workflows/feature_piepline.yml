@@ -9,6 +9,7 @@ on:
 env:
   # Environment variables for the workflow
   PYTHON_VERSION: 3.10
+  #updated versions
   POETRY_VERSION: 1.8.5
   POETRY_URL: https://install.python-poetry.org
 
