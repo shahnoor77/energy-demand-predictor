@@ -46,7 +46,7 @@ jobs:
         
         - name: Install Dependencies
           run: |
-            poetry add hopsworks@<4.15
+            poetry add hopsworks
             poetry install
 
             
