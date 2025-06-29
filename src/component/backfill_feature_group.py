@@ -46,8 +46,17 @@ def run():
     electricity_demand_data = get_historical_demand_values()
 
     # add new column with the timestamp in Unix seconds
-    electricity_demand_data['date'] = pd.to_datetime(electricity_demand_data['date'], utc=True)    
-    electricity_demand_data['seconds'] = electricity_demand_data['date'].astype(int) // 10**6 # Unix milliseconds
+    # ✅ 1. Ensure 'date' is datetime for Hopsworks
+    electricity_demand_data['date'] = pd.to_datetime(electricity_demand_data['date'], utc=True)
+  
+    # ✅ 2. Optional - only for inspection (do NOT overwrite `date`)
+    electricity_demand_data['date_str'] = electricity_demand_data['date'].dt.strftime("%Y-%m-%d %H:%M:%S")
+
+    # ✅ 3. Optional - for model features or logging
+    electricity_demand_data['seconds'] = electricity_demand_data['date'].astype('int64') // 10**6
+    logger.info(electricity_demand_data.dtypes)
+
+
 
     # get a pointer to the feature group we wanna write to
     feature_group = get_or_create_feature_group(FEATURE_GROUP_METADATA)

@@ -112,10 +112,17 @@ def load_daily_electricity_data(start_date, end_date) -> pd.DataFrame:
                 current_date += timedelta(days=1)
                 continue
 
-      
-        day_data['sub_region_code'] = label_encoder.fit_transform(day_data['subba'])
-        day_data['sub_region_code'] = day_data['sub_region_code'].astype('int64')
-       
+        #breakpoint()  # Debugging point to inspect day_data
+        #day_data = day_data.copy()
+        #day_data['sub_region_code'] = day_data['sub_region_code'].astype('int64')
+        if 'subba' in day_data.columns and not day_data['subba'].dropna().empty:
+            day_data = day_data.copy()  # Avoid SettingWithCopyWarning
+            day_data['sub_region_code'] = label_encoder.fit_transform(day_data['subba'])
+            day_data['sub_region_code'] = day_data['sub_region_code'].astype('int64')
+        else:
+            print(f"[Warning] Missing or empty 'subba' in file: {local_file}")
+            day_data['sub_region_code'] = -1  # or np.nan or use .get('parent') fallback
+
         
 
 

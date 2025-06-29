@@ -18,12 +18,12 @@ except:
 
 # TODO: remove FEATURE_GROUP_NAME and FEATURE_GROUP_VERSION, and use FEATURE_GROUP_METADATA instead
 FEATURE_GROUP_NAME = 'electricity_demand_feature_group'
-FEATURE_GROUP_VERSION = 3
+FEATURE_GROUP_VERSION = 1
 FEATURE_GROUP_METADATA = FeatureGroupConfig(
     name='electricity_demand_feature_group',
-    version=3,
+    version=1,
     description='Feature group with hourly time-series data of historical demand values',
-    primary_key=['sub_region_code', 'date'],
+    primary_key=['sub_region_code', 'seconds'],
     event_time='date',
     online_enabled=True,
 )
@@ -46,7 +46,7 @@ FEATURE_GROUP_PREDICTIONS_METADATA = FeatureGroupConfig(
     name='model_predictions_feature_group',
     version=1,
     description='Predictions generate by our production model',
-    primary_key=['sub_region_code', 'date'],
+    primary_key=['sub_region_code', 'seconds'],
     event_time='date',
 )
 

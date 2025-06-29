@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
 
 import pandas as pd
 
@@ -29,8 +30,10 @@ def run(date: datetime):
     # to the feature_pipeline. This way, if the pipeline fails for some reason,
     # we can still re-write data for that missing hour in a later run.
     demand_values = fetch_demand_values_from_data_warehouse(
-        from_date=(date - timedelta(days=28)), to_date=date
-    )
+    from_date=(date - timedelta(days=28)).replace(tzinfo=timezone.utc),
+    to_date=date.replace(tzinfo=timezone.utc)
+)
+
 
     # transform raw data into time-series data by aggregating rides per
     # pickup location and hour
@@ -38,7 +41,9 @@ def run(date: datetime):
     # add new column with the timestamp in Unix seconds
     logger.info('Adding column `seconds` with Unix seconds...')
     demand_values['date'] = pd.to_datetime(demand_values['date'], utc=True)
-    demand_values['seconds'] = demand_values['date'].astype(int) // 10**6
+    demand_values['seconds'] = demand_values['date'].astype('int64') // 10**6
+    demand_values['date_str'] = demand_values['date'].dt.strftime("%Y-%m-%d %H:%M:%S")  # <- Add this
+
 
     # get a pointer to the feature group we wanna write to
     logger.info('Getting pointer to the feature group we wanna save data to')
