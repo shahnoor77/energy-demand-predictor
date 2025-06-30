@@ -34,6 +34,7 @@ hopsworks = "4.2"
 hsml = "^3.7.2"
 pexpect = "^4.9.0"
 streamlit = "^1.46.1"
+confluent-kafka = "^2.10.1"
 
 [build-system]
 requires = ["poetry-core"]
